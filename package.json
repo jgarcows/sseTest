@@ -1,0 +1,8 @@
+{
+    "name": "jgarcows-sse-test",
+    "version": "0.0.0",
+    "main": "ssetest.js",
+    "scripts": {
+        "start": "node ssetest.js"
+    }
+}
