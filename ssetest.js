@@ -10,7 +10,14 @@ http.createServer(function (req, res) {
   var remoteAddr = ""+req.socket.remoteAddress + ":" +req.socket.remotePort;
   var localAddr = ""+req.socket.localAddress+":"+req.socket.localPort;
   
+  
   fs.appendFile(logFile, "Incoming request started at " + (new Date()) + 
+      "\n\turl: "+ req.url +
+      "\n\theaders: "+ JSON.stringify(req.headers) +
+      "\n\tremoteAddr: "+ remoteAddr +
+    "\n\tlocalAddr: "+ localAddr +"\n");
+    
+  console.log("Incoming request started at " + (new Date()) + 
       "\n\turl: "+ req.url +
       "\n\theaders: "+ JSON.stringify(req.headers) +
       "\n\tremoteAddr: "+ remoteAddr +
@@ -34,6 +41,11 @@ http.createServer(function (req, res) {
           "\n\theaders: "+ JSON.stringify(req.headers) +
           "\n\tremoteAddr: "+ remoteAddr +
       "\n\tlocalAddr: "+ localAddr +"\n");
+      console.log("Streaming request finished at " + (new Date()) + 
+          "\n\turl: "+ req.url +
+          "\n\theaders: "+ JSON.stringify(req.headers) +
+          "\n\tremoteAddr: "+ remoteAddr +
+      "\n\tlocalAddr: "+ localAddr +"\n");
     }, false);
   } else if (req.url === "/log") {
     fs.readFile(logFile, function(error, content) {
@@ -47,7 +59,7 @@ http.createServer(function (req, res) {
     });
   } else {
     res.writeHead(200, {"Content-Type":"text/html"});
-    res.end("<html><body>Try going to /stream or /log</body></html>", "utf-8");
+    res.end("<html><body><p> Try going to /stream or /log </p></body></html>\n", "utf-8");
   }
 }).listen(port);
 console.log("Server running on port" + port);
